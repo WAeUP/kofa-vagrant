@@ -32,6 +32,7 @@
 
   - name: Get Kofa sources
     become: vagrant
-    get_url:
-      url=https://pypi.python.org/packages/source/w/waeup.kofa/waeup.kofa-{{ kofa_version }}.tar.gz
-      dest=/home/vagrant/kofa-{{ kofa_version }}.tar.gz
+    unarchive:
+      copy=no
+      src=https://pypi.python.org/packages/source/w/waeup.kofa/waeup.kofa-{{ kofa_version }}.tar.gz
+      dest=/home/vagrant/
