@@ -34,4 +34,4 @@
     become: vagrant
     get_url:
       url=https://pypi.python.org/packages/source/w/waeup.kofa/waeup.kofa-{{ kofa_version }}.tar.gz
-      dest=/home/vagrant/kofa.tar.gz
+      dest=/home/vagrant/kofa-{{ kofa_version }}.tar.gz
