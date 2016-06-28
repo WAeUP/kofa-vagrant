@@ -2,6 +2,8 @@
 - hosts: all
   become: yes
   remote_user: root
+  vars:
+    kofa_version: 1.4.1
   tasks:
   - name: Update cache if not done in last 24 hours.
     apt: update_cache=yes cache_valid_time=86400
@@ -27,3 +29,9 @@
       - libopenjpeg-dev
       - wget
       - git
+
+  - name: Get Kofa sources
+    become: vagrant
+    get_url:
+      url=https://pypi.python.org/packages/source/w/waeup.kofa/waeup.kofa-{{ kofa_version }}.tar.gz
+      dest=/home/vagrant/kofa.tar.gz
