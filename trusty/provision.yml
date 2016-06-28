@@ -9,7 +9,7 @@
   - name: Aptitude safe-upgrade
     apt: upgrade=safe
 
-  - name: Install packages
+  - name: Install system packages
     package:
       name={{ item }}
       state=present
