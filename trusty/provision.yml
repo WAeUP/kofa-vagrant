@@ -8,3 +8,22 @@
 
   - name: Aptitude safe-upgrade
     apt: upgrade=safe
+
+  - name: Install packages
+    package:
+      name={{ item }}
+      state=present
+    with_items:
+      - libssl-dev
+      - libffi-dev
+      - python2.7-dev
+      - libxml2-dev
+      - libxslt1-dev
+      - zlib1g-dev
+      - python-virtualenv
+      - libjpeg-dev
+      - libfreetype6-dev
+      - libtiff-dev
+      - libopenjpeg-dev
+      - wget
+      - git
