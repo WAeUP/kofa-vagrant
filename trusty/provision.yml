@@ -47,3 +47,10 @@
     args:
       chdir: /home/vagrant/waeup.kofa-{{ kofa_version }}
       creates: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/buildout
+
+  - name: Run buildout
+    become: vagrant
+    command: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/buildout
+    args:
+      chdir: /home/vagrant/waeup.kofa-{{ kofa_version }}
+      creates: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/kofactl
