@@ -40,3 +40,10 @@
   - name: Create virtualenv
     become: vagrant
     command: virtualenv /home/vagrant/py27 creates=/home/vagrant/py27/
+
+  - name: Run bootstrap
+    become: vagrant
+    command: /home/vagrant/py27/bin/python bootstrap.py
+    args:
+      chdir: /home/vagrant/waeup.kofa-{{ kofa_version }}
+      creates: /home/vagrant/py27/bin/buildout
