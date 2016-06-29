@@ -31,9 +31,10 @@
       - git
 
   - name: Fix link to freetype2
-    command: ln -s /usr/include/freetype2 /usr/include/freetype2/freetype
-    args:
-      creates: /usr/include/freetype2/freetype
+    file:
+      state: link
+      src: /usr/include/freetype2
+      dest: /usr/include/freetype2/freetype
 
   - name: Get Kofa sources
     become: vagrant
