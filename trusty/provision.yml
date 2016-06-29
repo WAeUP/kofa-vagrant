@@ -46,4 +46,4 @@
     command: /home/vagrant/py27/bin/python bootstrap.py
     args:
       chdir: /home/vagrant/waeup.kofa-{{ kofa_version }}
-      creates: /home/vagrant/py27/bin/buildout
+      creates: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/buildout
