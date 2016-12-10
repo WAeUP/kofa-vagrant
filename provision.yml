@@ -1,0 +1,62 @@
+---
+- hosts: all
+  become: yes
+  remote_user: root
+  vars:
+    kofa_version: 1.4.1
+  tasks:
+  - name: Update cache if not done in last 24 hours.
+    apt: update_cache=yes cache_valid_time=86400
+
+  - name: Aptitude safe-upgrade
+    apt: upgrade=safe
+
+  - name: Install system packages
+    package:
+      name={{ item }}
+      state=present
+    with_items:
+      - libssl-dev
+      - libffi-dev
+      - python2.7-dev
+      - libxml2-dev
+      - libxslt1-dev
+      - zlib1g-dev
+      - python-virtualenv
+      - libjpeg-dev
+      - libfreetype6-dev
+      - libtiff-dev
+      - libopenjpeg-dev
+      - wget
+      - git
+
+  - name: Fix link to freetype2
+    file:
+      state: link
+      src: /usr/include/freetype2
+      dest: /usr/include/freetype2/freetype
+
+  - name: Get Kofa sources
+    become: vagrant
+    unarchive:
+      copy=no
+      src=https://pypi.python.org/packages/source/w/waeup.kofa/waeup.kofa-{{ kofa_version }}.tar.gz
+      dest=/home/vagrant/
+
+  - name: Create virtualenv
+    become: vagrant
+    command: virtualenv /home/vagrant/py27 creates=/home/vagrant/py27/
+
+  - name: Run bootstrap
+    become: vagrant
+    command: /home/vagrant/py27/bin/python bootstrap.py
+    args:
+      chdir: /home/vagrant/waeup.kofa-{{ kofa_version }}
+      creates: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/buildout
+
+  - name: Run buildout (this may take some minutes...)
+    become: vagrant
+    command: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/buildout
+    args:
+      chdir: /home/vagrant/waeup.kofa-{{ kofa_version }}
+      creates: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/kofactl
