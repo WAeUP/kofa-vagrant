@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
   config.vm.define "trusty" do |machine|
-    machine.vm.box = "ubuntu/trusty32"	  
+    machine.vm.box = "ubuntu/trusty32"
     # Create a private network, which allows host-only access to the machine
     # using a specific IP.
     machine.vm.hostname = "kofa.sample.org"
