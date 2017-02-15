@@ -11,10 +11,10 @@ Clone this repo locally::
 
   $ git clone https://github.com/WAeUP/kofa-vagrant
 
-Then change into `trusty/` and fire up local `vagrant`_ box::
+Then fire up a local `vagrant`_ box::
 
-  $ cd trusty/
-  (trusty) $ vagrant up
+  $ cd kofa-vagrant
+  $ vagrant up
 
 This will fetch a complete vagrant_ image (several hundreds MB) if you
 do not have one stored locally already.
