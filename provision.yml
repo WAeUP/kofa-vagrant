@@ -36,16 +36,16 @@
       src: /usr/include/freetype2
       dest: /usr/include/freetype2/freetype
 
+  - name: Create virtualenv
+    become: vagrant
+    command: virtualenv /home/vagrant/py27 creates=/home/vagrant/py27/
+
   - name: Get Kofa sources
     become: vagrant
     unarchive:
       copy=no
       src=https://pypi.python.org/packages/source/w/waeup.kofa/waeup.kofa-{{ kofa_version }}.tar.gz
       dest=/home/vagrant/
-
-  - name: Create virtualenv
-    become: vagrant
-    command: virtualenv /home/vagrant/py27 creates=/home/vagrant/py27/
 
   - name: Run bootstrap
     become: vagrant
