@@ -40,12 +40,25 @@
     become: vagrant
     command: virtualenv /home/vagrant/py27 creates=/home/vagrant/py27/
 
-  - name: Get Kofa sources
+  - name: Upgrade setuptools and pip
+    become: vagrant
+    pip:
+        state: latest
+        name: pip
+
+  - name: Download Kofa sources with pip
+    become: vagrant
+    command: /home/vagrant/py27/bin/pip download --no-deps waeup.kofa=={{ kofa_version }}
+    args:
+      chdir: /home/vagrant
+      creates: /home/vagrant/waeup.kofa-{{ kofa_version }}
+
+  - name: Unpack Kofa sources
     become: vagrant
     unarchive:
-      copy=no
-      src=https://pypi.python.org/packages/source/w/waeup.kofa/waeup.kofa-{{ kofa_version }}.tar.gz
-      dest=/home/vagrant/
+      copy: no
+      src: /home/vagrant/waeup.kofa-{{ kofa_version }}.tar.gz
+      dest: /home/vagrant/
 
   - name: Run bootstrap
     become: vagrant
