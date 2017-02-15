@@ -29,8 +29,8 @@ Run Kofa
 ssh into the vagrant box and start kofa:
 
   $ vagrant ssh
-  vagrant@kofa:~ $ cd waeup.kofa-1.4.1
-  vagrant@kofa:~/waeup.kofa-1.4.1 $ ./bin/kofactl start
+  vagrant@kofa:~ $ cd waeup.kofa-1.5
+  vagrant@kofa:~/waeup.kofa-1.5 $ ./bin/kofactl start
   .
   daemon process started, pid=13363
 
