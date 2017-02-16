@@ -26,6 +26,7 @@
       - libxslt1-dev
       - zlib1g-dev
       - python-virtualenv
+      - python-pip
       - libjpeg-dev
       - libfreetype6-dev
       - libtiff-dev
@@ -55,6 +56,7 @@
     pip:
         state: latest
         name: pip
+        executable: /home/{{ ansible_user_id }}/py27/bin/pip
 
   - name: Download Kofa sources with pip
     become: no
