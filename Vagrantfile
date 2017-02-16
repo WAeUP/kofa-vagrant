@@ -17,6 +17,7 @@ Vagrant.configure(2) do |config|
       vb.name = "kofa-trusty"
     end
   end
+  config.vm.provision "shell", path: "install-python.sh"
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
     ansible.playbook = "provision.yml"
