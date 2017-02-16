@@ -47,8 +47,8 @@
     when: freetype2_dir.stat.exists == False
 
   - name: Create virtualenv
-    command: virtualenv -p /usr/bin/python2.7 /home/vagrant/py27 creates=/home/vagrant/py27/
     become: no
+    command: virtualenv -p /usr/bin/python2.7 /home/{{ ansible_user_id }}/py27 creates=/home/{{ ansible_user_id }}/py27/
 
   - name: Upgrade setuptools and pip
     become: no
@@ -58,28 +58,28 @@
 
   - name: Download Kofa sources with pip
     become: no
-    command: /home/vagrant/py27/bin/pip download --no-deps waeup.kofa=={{ kofa_version }}
+    command: /home/{{ ansible_user_id }}/py27/bin/pip download --no-deps waeup.kofa=={{ kofa_version }}
     args:
-      chdir: /home/vagrant
-      creates: /home/vagrant/waeup.kofa-{{ kofa_version }}
+      chdir: /home/{{ ansible_user_id }}
+      creates: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}
 
   - name: Unpack Kofa sources
     become: no
     unarchive:
       copy: no
-      src: /home/vagrant/waeup.kofa-{{ kofa_version }}.tar.gz
-      dest: /home/vagrant/
+      src: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}.tar.gz
+      dest: /home/{{ ansible_user_id }}/
 
   - name: Run bootstrap
     become: no
-    command: /home/vagrant/py27/bin/python bootstrap.py
+    command: /home/{{ ansible_user_id }}/py27/bin/python bootstrap.py
     args:
-      chdir: /home/vagrant/waeup.kofa-{{ kofa_version }}
-      creates: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/buildout
+      chdir: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}
+      creates: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}/bin/buildout
 
   - name: Run buildout (this may take some minutes...)
     become: no
-    command: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/buildout
+    command: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}/bin/buildout
     args:
-      chdir: /home/vagrant/waeup.kofa-{{ kofa_version }}
-      creates: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/kofactl
+      chdir: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}
+      creates: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}/bin/kofactl
