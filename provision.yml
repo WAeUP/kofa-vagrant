@@ -31,11 +31,17 @@
       - wget
       - git
 
+  - name: Check freetype2 link
+    stat:
+      path: /usr/include/freetype2/freetype
+    register: freetype2_dir
+
   - name: Fix link to freetype2
     file:
       state: link
       src: /usr/include/freetype2
       dest: /usr/include/freetype2/freetype
+    when: freetype2_dir.stat.exists == False
 
   - name: Create virtualenv
     become: vagrant
