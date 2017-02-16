@@ -51,34 +51,34 @@
     become: no
 
   - name: Upgrade setuptools and pip
-    become: vagrant
+    become: no
     pip:
         state: latest
         name: pip
 
   - name: Download Kofa sources with pip
-    become: vagrant
+    become: no
     command: /home/vagrant/py27/bin/pip download --no-deps waeup.kofa=={{ kofa_version }}
     args:
       chdir: /home/vagrant
       creates: /home/vagrant/waeup.kofa-{{ kofa_version }}
 
   - name: Unpack Kofa sources
-    become: vagrant
+    become: no
     unarchive:
       copy: no
       src: /home/vagrant/waeup.kofa-{{ kofa_version }}.tar.gz
       dest: /home/vagrant/
 
   - name: Run bootstrap
-    become: vagrant
+    become: no
     command: /home/vagrant/py27/bin/python bootstrap.py
     args:
       chdir: /home/vagrant/waeup.kofa-{{ kofa_version }}
       creates: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/buildout
 
   - name: Run buildout (this may take some minutes...)
-    become: vagrant
+    become: no
     command: /home/vagrant/waeup.kofa-{{ kofa_version }}/bin/buildout
     args:
       chdir: /home/vagrant/waeup.kofa-{{ kofa_version }}
