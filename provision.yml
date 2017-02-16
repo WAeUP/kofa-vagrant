@@ -1,18 +1,20 @@
 ---
 - hosts: all
-  become: yes
-  remote_user: root
+  become: no
   vars:
     kofa_version: 1.5
     ansible_python_interpreter: /usr/bin/python2.7
   tasks:
   - name: Update cache if not done in last 24 hours.
     apt: update_cache=yes cache_valid_time=86400
+    become: yes
 
   - name: Aptitude safe-upgrade
     apt: upgrade=safe
+    become: yes
 
   - name: Install system packages
+    become: yes
     package:
       name={{ item }}
       state=present
@@ -37,6 +39,7 @@
     register: freetype2_dir
 
   - name: Fix link to freetype2
+    become: yes
     file:
       state: link
       src: /usr/include/freetype2
@@ -44,8 +47,8 @@
     when: freetype2_dir.stat.exists == False
 
   - name: Create virtualenv
-    become: vagrant
     command: virtualenv -p /usr/bin/python2.7 /home/vagrant/py27 creates=/home/vagrant/py27/
+    become: no
 
   - name: Upgrade setuptools and pip
     become: vagrant
