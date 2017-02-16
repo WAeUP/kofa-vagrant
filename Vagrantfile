@@ -17,6 +17,13 @@ Vagrant.configure(2) do |config|
       vb.name = "kofa-trusty"
     end
   end
+  config.vm.define "xenial" do |machine|
+    machine.vm.box = "ubuntu/xenial32"
+    # machine.vm.synced_folder "../data", "/vagrant_data"
+    machine.vm.provider "virtualbox" do |vb|
+      vb.name = "kofa-xenial"
+    end
+  end
   config.vm.provision "shell", path: "install-python.sh"
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
