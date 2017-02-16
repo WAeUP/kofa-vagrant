@@ -1,7 +1,7 @@
 kofa-vagrant
 ************
 
-A vagrant_ machine running `kofa`_.
+vagrant_ machines running `kofa`_.
 
 
 Initialize
@@ -11,16 +11,30 @@ Clone this repo locally::
 
   $ git clone https://github.com/WAeUP/kofa-vagrant
 
-Then fire up a local `vagrant`_ box::
+Then fire up local `vagrant`_ boxes::
 
   $ cd kofa-vagrant
   $ vagrant up
 
-This will fetch a complete vagrant_ image (several hundreds MB) if you
-do not have one stored locally already.
+This will fetch complete vagrant_ images (several hundreds MB per box) if you
+do not have stored them locally already.
 
-The machine will be provisioned using ansible_. This might take a
-considerable amount of time.
+The machines will be provisioned using ansible_ (and a little shell script
+preparing the ground for ansible). This might take a considerable amount of
+time.
+
+Currently we provide two boxes, Ubuntu 14.04 ("trusty") and 16.04 ("xenial").
+If you want to work with one of them only, specify the desired version in
+your command:
+
+  - ``trusty``
+  - ``xenial``
+
+For instance to initialize only the 14.04er box, run::
+
+  $ vagrant up trusty
+
+The same applies for all other vagrant_ commands described in here.
 
 
 Run Kofa
@@ -28,7 +42,7 @@ Run Kofa
 
 ssh into the vagrant box and start kofa:
 
-  $ vagrant ssh
+  $ vagrant ssh xenial  # or 'trusty'
   vagrant@kofa:~ $ cd waeup.kofa-1.5
   vagrant@kofa:~/waeup.kofa-1.5 $ ./bin/kofactl start
   .
