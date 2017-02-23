@@ -16,8 +16,8 @@ Then fire up local `vagrant`_ boxes::
   $ cd kofa-vagrant
   $ vagrant up
 
-This will fetch complete vagrant_ images (several hundreds MB per box) if you
-do not have stored them locally already.
+When run for the first time on a system, this will fetch complete vagrant_
+images (several hundreds MB per box).
 
 The machines will be provisioned using ansible_ (and a little shell script
 preparing the ground for ansible). This might take a considerable amount of
