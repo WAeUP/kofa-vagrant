@@ -12,10 +12,10 @@
     kofa_version: 1.5
 
   handlers:
-  - name: Restart nginx
+  - name: reload nginx
     service:
         name: nginx
-        state: restarted
+        state: reloaded
 
   tasks:
   - name: Update cache if not done in last 24 hours.
@@ -40,7 +40,7 @@
         owner: root
         group: root
         mode: 0644
-    notify: Restart nginx
+    notify: reload nginx
 
   - name: Create symlink to nginx kofa config
     become: yes
@@ -48,4 +48,4 @@
         src: "/etc/nginx/sites-available/kofa.conf"
         dest: "/etc/nginx/sites-enabled/kofa.conf"
         state: link
-    notify: Restart nginx
+    notify: reload nginx
