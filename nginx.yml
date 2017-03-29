@@ -42,6 +42,12 @@
         mode: 0644
     notify: reload nginx
 
+  - name: Remove default nginx config
+    become: yes
+    file:
+        path: "/etc/nginx/sites-enabled/default"
+        state: absent
+
   - name: Create symlink to nginx kofa config
     become: yes
     file:
