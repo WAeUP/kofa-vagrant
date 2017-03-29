@@ -2,6 +2,11 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
+  # Update /etc/hosts on host?
+  # Requires the vagrant-hostmanager plugin
+  # Recommended for setup with nginx
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.hostname = "kofa.sample.org"
