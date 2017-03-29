@@ -1,0 +1,44 @@
+# Install nginx for serving kofa.
+# Run like this:
+#
+#    $ ansible-playbook -i 192.168.33.33, -u vagrant \
+#            --private-key=.vagrant/machines/trusty/virtualbox/private_key nginx.yml
+#
+#
+---
+- hosts: all
+  become: no
+  vars:
+    kofa_version: 1.5
+
+  handlers:
+  - name: Restart nginx
+    service:
+        name: nginx
+        state: restarted
+
+  tasks:
+  - name: Update cache if not done in last 24 hours.
+    apt: update_cache=yes cache_valid_time=86400
+    become: yes
+
+  - name: Aptitude safe-upgrade
+    apt: upgrade=safe
+    become: yes
+
+  - name: Install ningx
+    become: yes
+    package:
+        name: 'nginx'
+        state: present
+
+  - name: Create nginx entry for kofa
+    become: yes
+    copy:
+        src: "kofa-nginx.conf"
+        dest: "/etc/nginx/sites-available/kofa.conf"
+        owner: root
+        group: root
+        mode: 0644
+    notify: Restart nginx
+
