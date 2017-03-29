@@ -42,3 +42,10 @@
         mode: 0644
     notify: Restart nginx
 
+  - name: Create symlink to nginx kofa config
+    become: yes
+    file:
+        src: "/etc/nginx/sites-available/kofa.conf"
+        dest: "/etc/nginx/sites-enabled/kofa.conf"
+        state: link
+    notify: Restart nginx
