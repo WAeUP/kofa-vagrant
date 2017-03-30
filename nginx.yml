@@ -9,7 +9,7 @@
 - hosts: all
   become: no
   vars:
-    kofa_version: 1.5
+      kofa_hostname: kofa.sample.org
 
   handlers:
   - name: reload nginx
@@ -31,6 +31,20 @@
     package:
         name: 'nginx'
         state: present
+
+  - name: Create SSL dir for nginx
+    become: yes
+    file:
+        path: /etc/nginx/ssl/
+        state: directory
+        mode: 0755
+
+  - name: Create self-signed SSL cert
+    become: yes
+    command: openssl req -new -nodes -x509 -subj "/C=DE/ST=Lower-Saxony/L=Lüchow/O=IT/CN={{ kofa_hostname }}" -days 3650 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.pem -extensions v3_ca
+    args:
+        creates: /etc/nginx/server.crt
+    notify: reload nginx
 
   - name: Create nginx entry for kofa
     become: yes
