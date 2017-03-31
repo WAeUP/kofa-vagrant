@@ -4,6 +4,17 @@
 #    $ ansible-playbook -i 192.168.33.33, -u vagrant \
 #            --private-key=.vagrant/machines/trusty/virtualbox/private_key nginx.yml
 #
+# This setup expects a running kofa portal on port 8080:
+#
+#    $ vagrant ssh trusty
+#    (vagrant) $ cd waeup.kofa-x.y
+#    (vagrant) $ ./bin/kofactl start
+#
+# We also require a `University` instance called `app` already created:
+#
+#    1) Open 192.168.33.33:8080 in your browser
+#    2) Login (grok/grok)
+#    3) Create a University instance.
 #
 ---
 - hosts: all
