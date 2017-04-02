@@ -59,6 +59,40 @@ default).
 Then you can create and browse a `University` via the webinterface.
 
 
+Install nginx as web proxy (optional)
+=====================================
+
+Kofa is normally run behind a webserver that acts as a proxy. We recommend
+`nginx` for that. The local ``nginx.yml`` file is an ansible_ playbook to
+create and configure an nginx server running inside your vagrant box.
+
+Run it like this (not run by default)::
+
+  $ ansible-playbook -k -i 192.168.33.33, nginx.yml
+
+(mind the trailing comma behind the IP number). The default password of
+`vagrant` is ``vagrant``.
+
+Inside the vagrant machine you must start Zope/grok and then create and run a
+Kofa instance (you need something to be proxied, right?). We first start Zope::
+
+  $ vagrant ssh trusty       # or xenial
+  (vagrant) $ cd waeup.kofa-1.5
+  (vagrant) $ ./bin/kofactl start
+
+Now we should be able to access the raw webinterface and create an Kofa
+instance called `app`:
+
+1) Open 192.168.33.33:8080 in your browser
+2) Login (grok/grok)
+3) Create a "University" instance called `app`.
+
+If you pick another name, you must change the nginx config later accordingly.
+
+If everthing went smooth, you should be able to browse to 192.168.33.33 at port
+80 and even at port 443 as we create a self-signed SSL certificate when running
+the playbook.
+
 .. _ansible: https://docs.ansible.com/ansible/
 .. _kofa: https://pypi.python.org/pypi/waeup.kofa
 .. _vagrant: https://www.vagrantup.com/
