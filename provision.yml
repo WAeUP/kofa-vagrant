@@ -63,7 +63,7 @@
     command: /home/{{ ansible_user_id }}/py27/bin/pip download --no-deps waeup.kofa=={{ kofa_version }}
     args:
       chdir: /home/{{ ansible_user_id }}
-      creates: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}
+      creates: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}.tar.gz
 
   - name: Unpack Kofa sources
     become: no
