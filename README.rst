@@ -68,7 +68,7 @@ create and configure an nginx server running inside your vagrant box.
 
 Run it like this (not run by default)::
 
-  $ ansible-playbook -k -i 192.168.33.33, nginx.yml
+  $ ansible-playbook -u vagrant -k -i 192.168.33.33, nginx.yml
 
 (mind the trailing comma behind the IP number). The default password of
 `vagrant` is ``vagrant``.
