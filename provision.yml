@@ -72,26 +72,12 @@
       src: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}.tar.gz
       dest: /home/{{ ansible_user_id }}/
 
-  - name: Install zc.buildout 2.9.3
+  - name: Run bootstrap (with zc.buildout 2.5.0)
     become: no
-    pip:
-        name: zc.buildout
-        version: 2.9.3
-        executable: /home/{{ ansible_user_id }}/py27/bin/pip
-
-  - name: Run bootstrap
-    become: no
-    command: /home/{{ ansible_user_id }}/py27/bin/python bootstrap.py
+    command: /home/{{ ansible_user_id }}/py27/bin/python bootstrap.py --buildout-version=2.5.0
     args:
       chdir: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}
       creates: /home/{{ ansible_user_id }}/waeup.kofa-{{ kofa_version }}/bin/buildout
-
-  - name: Install zc.buildout 2.5.0
-    become: no
-    pip:
-        name: zc.buildout
-        version: 2.5.0
-        executable: /home/{{ ansible_user_id }}/py27/bin/pip
 
   - name: Run buildout (this may take some minutes...)
     become: no
